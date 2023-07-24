@@ -16,17 +16,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/taskInput"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:text="Task" />
+                android:hint="Task..."/>
             <Button
-                android:id="@+id/button"
+                android:id="@+id/addButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add"
+                android:text="Add"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
