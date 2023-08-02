@@ -1,6 +1,7 @@
 package com.example.tasksapp
 
 import CustomAdapter
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -15,28 +16,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val recyclerview = findViewById<RecyclerView>(R.id.recyclerview)
         recyclerview.layoutManager = LinearLayoutManager(this)
-        val data = ArrayList<ItemsViewModel>()
 
+        val sharedPreferences = getSharedPreferences("task_app", MODE_PRIVATE)
+        val tasksString = sharedPreferences.getString("tasks", "") ?: ""
+        val editor = sharedPreferences.edit()
+
+        val tasks = tasksString.split(",").toMutableList()
+        val data = tasks.map { ItemsViewModel(it) }.toMutableList()
+
+        val adapter = CustomAdapter(data)
+        recyclerview.adapter = adapter
 
         val addButton = findViewById<Button>(R.id.addButton)
-        val task = findViewById<EditText>(R.id.taskInput)
+        val taskInput = findViewById<EditText>(R.id.taskInput)
+
 
         addButton.setOnClickListener {
-            data.add(ItemsViewModel(task.text.toString()))
-            val adapter = CustomAdapter(data)
-            recyclerview.adapter = adapter
-            task.setText("")
+            data.add(ItemsViewModel(taskInput.text.toString()))
+            adapter.notifyDataSetChanged()
+            taskInput.setText("")
+
+            val tasksString = data.joinToString(",") { it.text }
+            editor.putString("tasks", tasksString)
+            editor.apply()
         }
-        task.addTextChangedListener{
-            if(task.text.toString() != ""){
-                addButton.setEnabled(true);
-            }
-            else{
-                addButton.setEnabled(false);
-            }
+
+        taskInput.addTextChangedListener {
+            addButton.isEnabled = taskInput.text.toString().isNotEmpty()
         }
     }
 }
