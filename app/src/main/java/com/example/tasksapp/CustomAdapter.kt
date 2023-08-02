@@ -2,12 +2,13 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasksapp.ItemsViewModel
 import com.example.tasksapp.R
 
-class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private var mList: MutableList<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,10 +24,13 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val ItemsViewModel = mList[position]
-
-
         holder.textView.text = ItemsViewModel.text
 
+        holder.deleteButton.setOnClickListener {
+            mList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, mList.size)
+        }
     }
 
     // return the number of the items in the list
@@ -36,6 +40,7 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+        val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
         val textView: TextView = itemView.findViewById(R.id.textView)
     }
 }

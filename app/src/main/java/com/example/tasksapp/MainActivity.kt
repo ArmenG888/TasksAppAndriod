@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -21,14 +22,21 @@ class MainActivity : AppCompatActivity() {
 
 
         val addButton = findViewById<Button>(R.id.addButton)
-
+        val task = findViewById<EditText>(R.id.taskInput)
 
         addButton.setOnClickListener {
-            val task = findViewById<EditText>(R.id.taskInput)
             data.add(ItemsViewModel(task.text.toString()))
             val adapter = CustomAdapter(data)
             recyclerview.adapter = adapter
             task.setText("")
+        }
+        task.addTextChangedListener{
+            if(task.text.toString() != ""){
+                addButton.setEnabled(true);
+            }
+            else{
+                addButton.setEnabled(false);
+            }
         }
     }
 }
