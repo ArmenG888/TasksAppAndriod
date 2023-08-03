@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         taskInput.addTextChangedListener {
-            addButton.isEnabled = taskInput.text.toString().isNotEmpty()
+            addButton.isEnabled = taskInput.text.toString() != ""
         }
     }
 }
