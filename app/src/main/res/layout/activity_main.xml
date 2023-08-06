@@ -21,7 +21,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:hint="Task..."/>
+                android:hint="Task..."
+                android:imeOptions="actionSend"/>
             <Button
                 android:id="@+id/addButton"
                 android:layout_width="wrap_content"
