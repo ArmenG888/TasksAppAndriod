@@ -17,7 +17,7 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/taskInput"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
@@ -26,9 +26,9 @@
             <Button
                 android:id="@+id/addButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Add"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:enabled="false"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
